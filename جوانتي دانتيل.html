@@ -871,35 +871,24 @@ body {
 
 
 
-
-
-
 <body>
     <div class="container">
         <!-- معرض صور المنتج -->
         <div class="product-gallery">
-            <img id="main-image" src="images\0.jpeg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
+            <img id="main-image" src="images\44444.jpg" alt="Product Image">  <!--  الصورة الرئيسية -->
             <div class="arrows">
-               
             </div>
             <div class="thumbnails">
-                <img src="ججججججج" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
-                <img src="ججججججج" onclick="changeImage(this)">
-
+                <img src="images\44444.jpg" onclick="changeImage(this)">
+                <img src="images\444444.jpg" onclick="changeImage(this)">
+                                
             </div>
         </div>
 
         <div class="product-info">
-            <h1>TEST</h1>
-            <p><del class="old-price">800 EGP</del> <strong class="price">670 EGP</strong></p>
-            
-            <div class="sizes">
-                <p>المقاسات:</p>
-                <button onclick="selectSize('S', event)">S</button>
-                <button onclick="selectSize('M', event)">M</button>
-                <button onclick="selectSize('L', event)">L</button>
-                <button onclick="selectSize('XL', event)">XL</button>
-            </div>
+            <h1>جوانتي دانتيل</h1>
+            <p><del class="old-price">160 EGP</del> <strong class="price">140 EGP</strong></p>
+           
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -918,40 +907,17 @@ body {
                 <source src="123.mp3" type="audio/mpeg">
             </audio>
             
-            
-            <div class="product-details">
-                <table>
-                    <tr>
-                        <th>Size</th>
-                        <th>Length (from shoulder)</th>
-                        <th>Chest</th>
-                    </tr>
-                    <tr>
-                        <td>S</td>
-                        <td>140 cm</td>
-                        <td>108 cm</td>
-                    </tr>
-                    <tr>
-                        <td>M</td>
-                        <td>155 cm</td>
-                        <td>108 cm</td>
-                    </tr>
-                    <tr>
-                        <td>L</td>
-                        <td>140 cm</td>
-                        <td>120 cm</td>
-                    </tr>
-                    <tr>
-                        <td>XL</td>
-                        <td>155 cm</td>
-                        <td>120 cm</td>
-                    </tr>
-                </table>
+        </div>
+           
             </div>
-            <p class="material">المادة: قماش مضلع مخطط</p>
-            <p class="description">الوصف: عباية أنيقة بتصميم عصري يناسب جميع المناسبات.</p>
+            <h1 class="material">لاطلالة ملكية مبهرة 
+                متاح الاسود والاوف وايت </h1>
+            
         </div>
     </div>
+</div>
+</div>
+</div>
 
     </script>
     <div class="footer_section layout_padding">
@@ -1031,8 +997,6 @@ body {
         "",
         ""
     ];
-    let currentImageIndex = 0;
-
    
     function changeImage(img) {
         document.getElementById('main-image').src = img.src;
@@ -1040,7 +1004,7 @@ body {
 
    
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextImage, 7000);
+        
     }
 
     
@@ -1077,17 +1041,6 @@ body {
     }
 
  
-    function selectSize(size, event) {
-        selectedSize = size;
-
-       
-        document.querySelectorAll('.sizes button').forEach(button => {
-            button.classList.remove('selected');
-        });
-
-        
-        event.target.classList.add('selected');
-    }
 
     
     function increaseQuantity() {
@@ -1107,25 +1060,13 @@ body {
     function addToCart() {
         if (!selectedSize) {
             
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
+           
         }
 
         // إنشاء كائن المنتج
         const product = {
-            name: "TEST",
-            price: 670,
+            name: "جوانتي دانتيل",
+            price: 140,
             image: document.getElementById('main-image').src, 
             size: selectedSize,
             quantity: parseInt(document.getElementById('quantity').value)

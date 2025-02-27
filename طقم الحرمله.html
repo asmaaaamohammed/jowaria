@@ -871,27 +871,24 @@ body {
 
 
 
-
-
-
 <body>
     <div class="container">
         <!-- معرض صور المنتج -->
         <div class="product-gallery">
-            <img id="main-image" src="images\0.jpeg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
+            <img id="main-image" src="images\4.jpg" alt="Product Image">  <!--  الصورة الرئيسية -->
             <div class="arrows">
-               
             </div>
             <div class="thumbnails">
-                <img src="ججججججج" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
-                <img src="ججججججج" onclick="changeImage(this)">
-
+                <img src="images\4.jpg" onclick="changeImage(this)">
+                <img src="images\44.jpg" onclick="changeImage(this)">
+                <img src="images\444.jpg" onclick="changeImage(this)">
+                
             </div>
         </div>
 
         <div class="product-info">
-            <h1>TEST</h1>
-            <p><del class="old-price">800 EGP</del> <strong class="price">670 EGP</strong></p>
+            <h1>طقم الحرمله</h1>
+            <p><del class="old-price">500 EGP</del> <strong class="price">450 EGP</strong></p>
             
             <div class="sizes">
                 <p>المقاسات:</p>
@@ -918,40 +915,25 @@ body {
                 <source src="123.mp3" type="audio/mpeg">
             </audio>
             
-            
-            <div class="product-details">
-                <table>
-                    <tr>
-                        <th>Size</th>
-                        <th>Length (from shoulder)</th>
-                        <th>Chest</th>
-                    </tr>
-                    <tr>
-                        <td>S</td>
-                        <td>140 cm</td>
-                        <td>108 cm</td>
-                    </tr>
-                    <tr>
-                        <td>M</td>
-                        <td>155 cm</td>
-                        <td>108 cm</td>
-                    </tr>
-                    <tr>
-                        <td>L</td>
-                        <td>140 cm</td>
-                        <td>120 cm</td>
-                    </tr>
-                    <tr>
-                        <td>XL</td>
-                        <td>155 cm</td>
-                        <td>120 cm</td>
-                    </tr>
-                </table>
+        </div>
+           
             </div>
-            <p class="material">المادة: قماش مضلع مخطط</p>
-            <p class="description">الوصف: عباية أنيقة بتصميم عصري يناسب جميع المناسبات.</p>
+            <p class="material">طقم الحرمله مكون من ٤ قطع</p>
+            <p class="material">حرمله من طبقتين وبتغطى جزء من الكتف.
+            </p>
+            <p class="material">من الامام ٤٣ سم 
+            </p>
+            <p class="material">من الخلف ٦٣ سم </p>
+            <p class="material">اسكارف مربع متر في متر 
+            </p>
+            <p class="material">نقاب ٣٠ سم  وشريطة حواجب(هدية)</p>
+            <p class="material">الخامة شيفون سعودي درجه اولي 
+            </p>
         </div>
     </div>
+</div>
+</div>
+</div>
 
     </script>
     <div class="footer_section layout_padding">
@@ -1031,8 +1013,6 @@ body {
         "",
         ""
     ];
-    let currentImageIndex = 0;
-
    
     function changeImage(img) {
         document.getElementById('main-image').src = img.src;
@@ -1040,7 +1020,7 @@ body {
 
    
     function startAutoSlide() {
-        autoSlideInterval = setInterval(nextImage, 7000);
+        
     }
 
     
@@ -1124,8 +1104,8 @@ body {
 
         // إنشاء كائن المنتج
         const product = {
-            name: "TEST",
-            price: 670,
+            name: "طقم الحرمله",
+            price: 450,
             image: document.getElementById('main-image').src, 
             size: selectedSize,
             quantity: parseInt(document.getElementById('quantity').value)
