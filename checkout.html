@@ -84,6 +84,16 @@
             accent-color: #4B164C;
         }
 
+        .color-display {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #4B164C;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
         .product-details {
             background: rgba(255, 255, 255, 0.3);
             padding: 15px;
@@ -196,6 +206,8 @@
             font-size: 14px;
             pointer-events: none;
         }
+
+        
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
@@ -213,6 +225,8 @@
                 
             </div>
         </div>
+
+        
 
         
         <div class="right-section">
@@ -346,41 +360,41 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || {};
-            let checkoutItems = checkoutData.items || [];
-            let checkoutContainer = document.getElementById("checkout-items");
+       document.addEventListener("DOMContentLoaded", function () {
+    let checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || {};
+    let checkoutItems = checkoutData.items || [];
+    let checkoutContainer = document.getElementById("checkout-items");
 
-          
-            checkoutContainer.innerHTML = "";
-            if (checkoutItems.length === 0) {
-                checkoutContainer.innerHTML = "<p>No products found</p>";
-            } else {
-                checkoutItems.forEach(item => {
-                    let productDiv = document.createElement("div");
-                    productDiv.className = "product-details";
-                    productDiv.innerHTML = `
-                        <img src="${item.image}" alt="${item.name}" width="80">
-                        <div class="product-info">
-                            <h3>${item.name}</h3>
-                            <p>price: ${item.price} EGP</p>
-                            <p>Size: ${item.size}</p>
-                            <p>Quantity: ${item.quantity}</p>
-                        </div>
-                    `;
-                    checkoutContainer.appendChild(productDiv);
-                });
-            }
-
-            // تعبئة البيانات المالية
-            document.getElementById('total-before-discount').innerText = checkoutData.totalBeforeDiscount || "0.00";
-            document.getElementById('shipping-cost').innerText = checkoutData.shippingCost || "0.00";
-            document.getElementById('discount-value').innerText = checkoutData.discountValue || "0.00";
-            document.getElementById('final-total').innerText = checkoutData.finalTotal || "0.00";
-            document.getElementById('governorate').value = checkoutData.governorate || "";
+    checkoutContainer.innerHTML = "";
+    if (checkoutItems.length === 0) {
+        checkoutContainer.innerHTML = "<p>No products found</p>";
+    } else {
+        checkoutItems.forEach(item => {
+            let productDiv = document.createElement("div");
+            productDiv.className = "product-details";
+            productDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" width="80">
+                <div class="product-info">
+                    <h3>${item.name}</h3>
+                    <p>السعر: ${item.price} EGP</p>
+                    <p>المقاس: ${item.size}</p>
+                    <p>اللون: <span class="color-display" style="background-color: ${item.color};"></span></p>
+                    <p>الكمية: ${item.quantity}</p>
+                </div>
+            `;
+            checkoutContainer.appendChild(productDiv);
         });
+    }
 
-        function completeOrder() {
+    // تعبئة البيانات المالية
+    document.getElementById('total-before-discount').innerText = checkoutData.totalBeforeDiscount || "0.00";
+    document.getElementById('shipping-cost').innerText = checkoutData.shippingCost || "0.00";
+    document.getElementById('discount-value').innerText = checkoutData.discountValue || "0.00";
+    document.getElementById('final-total').innerText = checkoutData.finalTotal || "0.00";
+    document.getElementById('governorate').value = checkoutData.governorate || "";
+});
+
+           function completeOrder() {
     let name = document.getElementById('name').value.trim();
     let email = document.getElementById('email').value.trim();
     let phone = document.getElementById('phone').value.trim();
@@ -394,14 +408,18 @@
     let finalTotal = document.getElementById('final-total').innerText;
     let paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || "Not selected";
 
-    let checkoutItems = JSON.parse(localStorage.getItem("checkoutItems")) || [];
+    let checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || {};
+    let checkoutItems = checkoutData.items || [];
 
     if (!name || !email || !phone || !address) {
         alert("Please fill in all required fields.");
-            return;
-        }
+        return;
+    }
 
-    let orderDetails = checkoutItems.map(item => `Product Name: ${item.name}, amount: ${item.quantity}`).join("\n");
+    // إنشاء تفاصيل المنتجات كـ HTML
+    let orderDetails = checkoutItems.map(item => 
+        `اسم المنتج: ${item.name}, الكمية: ${item.quantity}, السعر: ${item.price}, اللون: ${item.color || 'لم يتم التحديد'}`
+    ).join("\n");
 
     let templateParams = {
         user_name: name,
@@ -410,7 +428,7 @@
         user_alt_phone: altPhone,
         user_governorate: governorate,
         user_address: address,
-        order_details: orderDetails,
+        order_details: orderDetails, // إرسال تفاصيل المنتجات كـ HTML
         total_before_discount: totalBeforeDiscount,
         shipping_cost: shippingCost,
         discount_value: discountValue,
@@ -420,16 +438,11 @@
 
     emailjs.send("service_d6kjesk", "template_4adtl9t", templateParams, "TORUhwPNsi5IrClRF")
         .then(response => {
-            
-
-         
-            localStorage.removeItem("checkoutItems");
+            localStorage.removeItem("checkoutData");
             localStorage.removeItem("cartItems");
 
-        
             let queryParams = new URLSearchParams(templateParams).toString();
             window.location.href = `to.html?${queryParams}`;
-
         }, error => {
             alert("An error occurred while submitting your request, please try again.");
         });

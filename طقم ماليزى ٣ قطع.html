@@ -795,7 +795,42 @@ body {
     pointer-events: none; /* منع المستخدم من الكتابة يدويًا */
 }
 
+.colors {
+    margin-top: 20px;
+    text-align: right;
+}
 
+.color-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-box.selected {
+    border: 2px solid #4B164C;
+    box-shadow: 0 4px 15px rgba(75, 22, 76, 0.3);
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-box:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
     </style>
       <meta name="keywords" content="">
@@ -887,6 +922,10 @@ body {
                 <img src="images\000000.jpg" onclick="changeImage(this)">
                 <img src="images\0000000.jpg" onclick="changeImage(this)">
                 <img src="images\00000000.jpg" onclick="changeImage(this)">
+                <img src="images\14.jpg" onclick="changeImage(this)">
+                <img src="images\1414.jpg" onclick="changeImage(this)">
+                <img src="images\141414.jpg" onclick="changeImage(this)">
+                <img src="images\14141414.jpg" onclick="changeImage(this)">
             </div>
         </div>
 
@@ -894,12 +933,22 @@ body {
             <h1>طقم ماليزى ٣ قطع</h1>
             <p><del class="old-price">400 EGP</del> <strong class="price">345 EGP</strong></p>
             
-            <div class="sizes">
-                <p>المقاسات:</p>
-                <button onclick="selectSize('S', event)">S</button>
-                <button onclick="selectSize('M', event)">M</button>
-                <button onclick="selectSize('L', event)">L</button>
-                <button onclick="selectSize('XL', event)">XL</button>
+            <div class="colors">
+                <p>اختر اللون:</p>
+                <div class="color-options">
+                    <div class="color-box" data-color="#ABB1BD" data-image="images/14141414.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #ABB1BD;"></div>
+                    </div>
+                    <div class="color-box" data-color="#7B7680" data-image="images/1414.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #7B7680;"></div>
+                    </div>
+                    <div class="color-box" data-color="#705035" data-image="images/141414.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #705035;"></div>
+                    </div>
+                    <div class="color-box" data-color="#ABADB4" data-image="images/14.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #ABADB4;"></div>
+                    </div>
+                </div>
             </div>
             
             <div class="quantity-control">
@@ -1022,7 +1071,38 @@ body {
         
     }
 
-    
+    function selectColor(color, event) {
+    // إزالة التحديد من جميع الأزرار الأخرى
+    document.querySelectorAll('.colors button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    event.target.classList.add('selected');
+
+    // حفظ اللون في localStorage
+    localStorage.setItem('selectedColor', color);
+}
+
+
+function selectColor(element) {
+    // إزالة التحديد من جميع الألوان الأخرى
+    document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    element.classList.add('selected');
+
+    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
+    const mainImage = document.getElementById('main-image');
+    const selectedImage = element.getAttribute('data-image');
+    mainImage.src = selectedImage;
+
+    // حفظ اللون المختار في localStorage
+    const selectedColor = element.getAttribute('data-color');
+    localStorage.setItem('selectedColor', selectedColor);
+}
 
   
     function nextImage() {
@@ -1086,29 +1166,19 @@ body {
     function addToCart() {
         if (!selectedSize) {
             
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
+            
         }
+        const selectedColor = document.querySelector('.color-box.selected')?.getAttribute('data-color') || 'لم يتم التحديد';
 
         // إنشاء كائن المنتج
         const product = {
             name: "طقم ماليزى ٣ قطع.",
             price: 345,
-            image: document.getElementById('main-image').src, 
-            size: selectedSize,
-            quantity: parseInt(document.getElementById('quantity').value)
-        };
+            image: document.getElementById('main-image').src,
+        size: selectedSize,
+        quantity: parseInt(document.getElementById('quantity').value),
+        color: selectedColor // إضافة اللون المختار إلى المنتج
+    };
 
         
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];

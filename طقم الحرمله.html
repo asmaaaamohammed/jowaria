@@ -795,7 +795,42 @@ body {
     pointer-events: none; /* منع المستخدم من الكتابة يدويًا */
 }
 
+.colors {
+    margin-top: 20px;
+    text-align: right;
+}
 
+.color-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-box.selected {
+    border: 2px solid #4B164C;
+    box-shadow: 0 4px 15px rgba(75, 22, 76, 0.3);
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-box:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
     </style>
       <meta name="keywords" content="">
@@ -882,6 +917,11 @@ body {
                 <img src="images\4.jpg" onclick="changeImage(this)">
                 <img src="images\44.jpg" onclick="changeImage(this)">
                 <img src="images\444.jpg" onclick="changeImage(this)">
+                <img src="images\13.jpg" onclick="changeImage(this)">
+                <img src="images\1313.jpg" onclick="changeImage(this)">
+                <img src="images\131313.jpg" onclick="changeImage(this)">
+                <img src="images\13131313.jpg" onclick="changeImage(this)">
+
                 
             </div>
         </div>
@@ -890,13 +930,25 @@ body {
             <h1>طقم الحرمله</h1>
             <p><del class="old-price">500 EGP</del> <strong class="price">450 EGP</strong></p>
             
-            <div class="sizes">
-                <p>المقاسات:</p>
-                <button onclick="selectSize('S', event)">S</button>
-                <button onclick="selectSize('M', event)">M</button>
-                <button onclick="selectSize('L', event)">L</button>
-                <button onclick="selectSize('XL', event)">XL</button>
+            
+            <div class="colors">
+                <p>اختر اللون:</p>
+                <div class="color-options">
+                    <div class="color-box" data-color="#918D69" data-image="images/1313.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #918D69;"></div>
+                    </div>
+                    <div class="color-box" data-color="#101115" data-image="images/13.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #101115;"></div>
+                    </div>
+                    <div class="color-box" data-color="#8B5579" data-image="images/13131313.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #8B5579;"></div>
+                    </div>
+                    <div class="color-box" data-color="#CCC4F1" data-image="images/131313.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #CCC4F1;"></div>
+                    </div>
+                </div>
             </div>
+
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -929,6 +981,7 @@ body {
             <p class="material">نقاب ٣٠ سم  وشريطة حواجب(هدية)</p>
             <p class="material">الخامة شيفون سعودي درجه اولي 
             </p>
+            <p class="material">علي شان تختاري اللون الي عاجبك تبقي تكتبيه في الصفحه الاخيره</p>
         </div>
     </div>
 </div>
@@ -1025,6 +1078,42 @@ body {
 
     
 
+    function selectColor(color, event) {
+    // إزالة التحديد من جميع الأزرار الأخرى
+    document.querySelectorAll('.colors button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    event.target.classList.add('selected');
+
+    // حفظ اللون في localStorage
+    localStorage.setItem('selectedColor', color);
+}
+
+
+function selectColor(element) {
+    // إزالة التحديد من جميع الألوان الأخرى
+    document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    element.classList.add('selected');
+
+    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
+    const mainImage = document.getElementById('main-image');
+    const selectedImage = element.getAttribute('data-image');
+    mainImage.src = selectedImage;
+
+    // حفظ اللون المختار في localStorage
+    const selectedColor = element.getAttribute('data-color');
+    localStorage.setItem('selectedColor', selectedColor);
+}
+
+
+
+
   
     function nextImage() {
         const mainImage = document.getElementById('main-image');
@@ -1083,85 +1172,35 @@ body {
         }
     }
 
-    
     function addToCart() {
-        if (!selectedSize) {
-            
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
-        }
-
-        // إنشاء كائن المنتج
-        const product = {
-            name: "طقم الحرمله",
-            price: 450,
-            image: document.getElementById('main-image').src, 
-            size: selectedSize,
-            quantity: parseInt(document.getElementById('quantity').value)
-        };
-
-        
-        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        
+    if (!selectedSize) {
        
-        cartItems.push(product);
-
-      
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-      
-        let sound = document.getElementById("buttonSound");
-        sound.currentTime = 0;
-        sound.play();
-
-      
-        window.location.href = "cart.html";
     }
 
+    // الحصول على اللون المختار
+    const selectedColor = document.querySelector('.color-box.selected')?.getAttribute('data-color') || 'لم يتم التحديد';
 
-    function buyNow() {
-        if (!selectedSize) {
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
-        }
-        Swal.fire({
-            icon: 'success',
-            title: ' Purchased',
-            text: ` Purchased ${quantity} SIZE  ${selectedSize}`,
-            confirmButtonText: 'OK',
-            customClass: {
-                popup: 'custom-swal-popup',
-                title: 'custom-swal-title',
-                content: 'custom-swal-content',
-                confirmButton: 'custom-swal-confirm-button'
-            }
-        });
-    }
+    // إنشاء كائن المنتج مع اللون المختار
+    const product = {
+        name: "طقم ماليزى ٣ قطع",
+        price: 345,
+        image: document.getElementById('main-image').src,
+        size: selectedSize,
+        quantity: parseInt(document.getElementById('quantity').value),
+        color: selectedColor // إضافة اللون المختار إلى المنتج
+    };
 
-   
-    startAutoSlide();
+    // إضافة المنتج إلى السلة
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    cartItems.push(product);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    // تشغيل الصوت وإعادة التوجيه إلى صفحة السلة
+    let sound = document.getElementById("buttonSound");
+    sound.currentTime = 0;
+    sound.play();
+    window.location.href = "cart.html";
+}
 </script>
 </body>
 </html>

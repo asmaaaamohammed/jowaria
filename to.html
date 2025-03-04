@@ -82,6 +82,16 @@
             text-align: right;
         }
 
+        .color-display {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #4B164C;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
         th {
             background-color: #4B164C;
             color: white;
@@ -157,7 +167,9 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <pre id="order-details" style="white-space: pre-wrap; font-size: 16px; color: #4B164C;">{{order_details}}</pre>
+                    <div id="order-details" style="font-size: 16px; color: #4B164C;">
+                        <!-- سيتم تعبئة هذا الجزء بالبيانات من السكريبت -->
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -193,21 +205,51 @@
 
     <script>
         // استخراج البيانات من الـ URL
-        const urlParams = new URLSearchParams(window.location.search);
-    
-        // تعبئة البيانات في الجدول
-        document.getElementById('user-name').innerText = urlParams.get('user_name');
-        document.getElementById('user-email').innerText = urlParams.get('user_email');
-        document.getElementById('user-phone').innerText = urlParams.get('user_phone');
-        document.getElementById('user-alt-phone').innerText = urlParams.get('user_alt_phone');
-        document.getElementById('user-governorate').innerText = urlParams.get('user_governorate');
-        document.getElementById('user-address').innerText = urlParams.get('user_address');
-        document.getElementById('order-details').innerText = urlParams.get('order_details');
-        document.getElementById('total-before-discount').innerText = urlParams.get('total_before_discount') + " جنيه";
-        document.getElementById('shipping-cost').innerText = urlParams.get('shipping_cost') + " جنيه";
-        document.getElementById('discount-value').innerText = urlParams.get('discount_value') + " جنيه";
-        document.getElementById('final-total').innerText = urlParams.get('final_total') + " جنيه";
-        document.getElementById('payment-method').innerText = urlParams.get('payment_method');
+const urlParams = new URLSearchParams(window.location.search);
+
+// تعبئة البيانات في الجدول
+document.getElementById('user-name').innerText = urlParams.get('user_name');
+document.getElementById('user-email').innerText = urlParams.get('user_email');
+document.getElementById('user-phone').innerText = urlParams.get('user_phone');
+document.getElementById('user-alt-phone').innerText = urlParams.get('user_alt_phone');
+document.getElementById('user-governorate').innerText = urlParams.get('user_governorate');
+document.getElementById('user-address').innerText = urlParams.get('user_address');
+document.getElementById('total-before-discount').innerText = urlParams.get('total_before_discount') + " جنيه";
+document.getElementById('shipping-cost').innerText = urlParams.get('shipping_cost') + " جنيه";
+document.getElementById('discount-value').innerText = urlParams.get('discount_value') + " جنيه";
+document.getElementById('final-total').innerText = urlParams.get('final_total') + " جنيه";
+document.getElementById('payment-method').innerText = urlParams.get('payment_method');
+
+// تعبئة تفاصيل المنتجات
+const orderDetails = urlParams.get('order_details');
+if (orderDetails) {
+    const products = orderDetails.split('\n');
+    const orderDetailsContainer = document.getElementById('order-details');
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.style.marginBottom = '10px';
+        productDiv.style.padding = '10px';
+        productDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.3)';
+        productDiv.style.borderRadius = '10px';
+        productDiv.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+
+        const productInfo = product.split(', ');
+        productInfo.forEach(info => {
+            const infoDiv = document.createElement('div');
+            if (info.includes('اللون:')) {
+                const colorValue = info.split(': ')[1];
+                infoDiv.innerHTML = `
+                    <span>اللون: </span>
+                    <span class="color-display" style="background-color: ${colorValue}; width: 20px; height: 20px; border-radius: 50%; display: inline-block; border: 2px solid #4B164C;"></span>
+                `;
+            } else {
+                infoDiv.innerText = info;
+            }
+            productDiv.appendChild(infoDiv);
+        });
+        orderDetailsContainer.appendChild(productDiv);
+    });
+}
     </script>
 </body>
 </html>

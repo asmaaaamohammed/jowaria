@@ -891,13 +891,7 @@ body {
             <h1>نقاب عيون الصقر</h1>
             <p><del class="old-price">220 EGP</del> <strong class="price">180 EGP</strong></p>
             
-            <div class="sizes">
-                <p>المقاسات:</p>
-                <button onclick="selectSize('S', event)">S</button>
-                <button onclick="selectSize('M', event)">M</button>
-                <button onclick="selectSize('L', event)">L</button>
-                <button onclick="selectSize('XL', event)">XL</button>
-            </div>
+            
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -1081,19 +1075,7 @@ body {
     function addToCart() {
         if (!selectedSize) {
             
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
+            
         }
 
         // إنشاء كائن المنتج
