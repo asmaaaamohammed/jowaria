@@ -823,7 +823,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid white;
+    border: 2px solid rgb(188, 88, 88);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -831,6 +831,34 @@ body {
     transform: scale(1.1);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 أعمدة في كل صف */
+    gap: 15px; /* مسافة بين العناصر */
+    justify-content: center;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
 
     </style>
       <meta name="keywords" content="">
@@ -926,6 +954,10 @@ body {
                 <img src="images\1414.jpg" onclick="changeImage(this)">
                 <img src="images\141414.jpg" onclick="changeImage(this)">
                 <img src="images\14141414.jpg" onclick="changeImage(this)">
+                <img src="images\16.jpg" onclick="changeImage(this)">
+                <img src="images\1717.jpg" onclick="changeImage(this)">
+                <img src="images\171717.jpg" onclick="changeImage(this)">
+
             </div>
         </div>
 
@@ -947,6 +979,21 @@ body {
                     </div>
                     <div class="color-box" data-color="#ABADB4" data-image="images/14.jpg" onclick="selectColor(this)">
                         <div class="color-circle" style="background-color: #ABADB4;"></div>
+                    </div>
+                    <div class="color-box" data-color="#394454" data-image="images/171717.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #394454;"></div>
+                    </div>
+                    <div class="color-box" data-color="#69372C" data-image="images/16.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #69372C;"></div>
+                    </div>
+                    <div class="color-box" data-color="#000" data-image="images/1717.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #000;"></div>
+                    </div>
+                    <div class="color-box" data-color="#E5AFDF" data-image="images/0.jpeg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #E5AFDF;"></div>
+                    </div>
+                    <div class="color-box" data-color="#162FC7" data-image="images/0000000.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #162FC7;"></div>
                     </div>
                 </div>
             </div>

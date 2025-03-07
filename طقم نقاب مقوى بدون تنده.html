@@ -795,6 +795,69 @@ body {
     pointer-events: none; /* منع المستخدم من الكتابة يدويًا */
 }
 
+.colors {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.color-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-box.selected {
+    border: 2px solid #4B164C;
+    box-shadow: 0 4px 15px rgba(75, 22, 76, 0.3);
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgb(188, 88, 88);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-box:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 أعمدة في كل صف */
+    gap: 15px; /* مسافة بين العناصر */
+    justify-content: center;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 
 
     </style>
@@ -880,8 +943,7 @@ body {
             </div>
             <div class="thumbnails">
                 <img src="images\7.jpg" onclick="changeImage(this)">
-                <img src="images\77.jpg" onclick="changeImage(this)">
-                <img src="images\777.jpg" onclick="changeImage(this)">
+                <img src="images\77.png" onclick="changeImage(this)">
                 
                 
             </div>
@@ -891,7 +953,14 @@ body {
             <h1>طقم نقاب مقوى بدون تنده</h1>
             <p><del class="old-price">430 EGP</del> <strong class="price">370 EGP</strong></p>
             
-            
+            <div class="colors">
+                <p>اختر اللون:</p>
+                <div class="color-options">
+                    <div class="color-box" data-color="#000" data-image="images\77.png" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #000;"></div>
+                    </div>
+                </div>
+            </div>
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -1006,10 +1075,43 @@ body {
         document.getElementById('main-image').src = img.src;
     }
 
-   
+
     function startAutoSlide() {
         
     }
+
+    function selectColor(color, event) {
+    // إزالة التحديد من جميع الأزرار الأخرى
+    document.querySelectorAll('.colors button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    event.target.classList.add('selected');
+
+    // حفظ اللون في localStorage
+    localStorage.setItem('selectedColor', color);
+}
+
+
+function selectColor(element) {
+    // إزالة التحديد من جميع الألوان الأخرى
+    document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    element.classList.add('selected');
+
+    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
+    const mainImage = document.getElementById('main-image');
+    const selectedImage = element.getAttribute('data-image');
+    mainImage.src = selectedImage;
+
+    // حفظ اللون المختار في localStorage
+    const selectedColor = element.getAttribute('data-color');
+    localStorage.setItem('selectedColor', selectedColor);
+}
 
     
 
@@ -1077,14 +1179,16 @@ body {
             
            
         }
+        const selectedColor = document.querySelector('.color-box.selected')?.getAttribute('data-color') || 'لم يتم التحديد';
 
         // إنشاء كائن المنتج
         const product = {
             name: "طقم نقاب مقوى بدون تنده",
             price: 370,
-            image: document.getElementById('main-image').src, 
-            size: selectedSize,
-            quantity: parseInt(document.getElementById('quantity').value)
+            image: document.getElementById('main-image').src,
+        size: selectedSize,
+        quantity: parseInt(document.getElementById('quantity').value),
+        color: selectedColor // إضافة اللون المختار إلى المنتج
         };
 
         

@@ -833,6 +833,33 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 أعمدة في كل صف */
+    gap: 10px; /* مسافة بين العناصر */
+    justify-content: center;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
     </style>
       <meta name="keywords" content="">
       <meta name="description" content="">
@@ -937,8 +964,8 @@ body {
             <div class="colors">
                 <p>اختر اللون:</p>
                 <div class="color-options">
-                    <div class="color-box" data-color="#69496C" data-image="images/15.jpg" onclick="selectColor(this)">
-                        <div class="color-circle" style="background-color: #69496C;"></div>
+                    <div class="color-box" data-color="#C496B2" data-image="images/15.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #C496B2;"></div>
                     </div>
                     <div class="color-box" data-color="#000000" data-image="images/1515.jpg" onclick="selectColor(this)">
                         <div class="color-circle" style="background-color: #000000;"></div>
@@ -951,6 +978,9 @@ body {
                     </div>
                     <div class="color-box" data-color="#381A3F" data-image="images/1515151515.jpg" onclick="selectColor(this)">
                         <div class="color-circle" style="background-color: #381A3F;"></div>
+                    </div>
+                    <div class="color-box" data-color="#851F37" data-image="images/33.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #851F37;"></div>
                     </div>
                 </div>
             </div>
