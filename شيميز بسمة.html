@@ -890,7 +890,13 @@ body {
             <h1>شيميز بسمة</h1>
             <p><del class="old-price">550 EGP</del> <strong class="price">450 EGP</strong></p>
             
-            
+            <div class="sizes">
+                <p>المقاسات:</p>
+                <button onclick="selectSize('S', event)">S</button>
+                <button onclick="selectSize('M', event)">M</button>
+                <button onclick="selectSize('L', event)">L</button>
+                <button onclick="selectSize('XL', event)">XL</button>
+            </div>
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -1033,6 +1039,21 @@ body {
     });
 
 
+
+    <!-- Facebook Pixel Code -->
+
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1798984920670719');
+fbq('track', 'PageView');
+
+
    
     function prevImage() {
         const mainImage = document.getElementById('main-image');
@@ -1075,7 +1096,19 @@ body {
     function addToCart() {
         if (!selectedSize) {
             
-           
+            Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'Please select a size',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    title: 'custom-swal-title',
+                    content: 'custom-swal-content',
+                    confirmButton: 'custom-swal-confirm-button'
+                }
+            });
+            return;
         }
 
         // إنشاء كائن المنتج
