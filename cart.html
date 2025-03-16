@@ -662,25 +662,32 @@ fbq('init', '1643480760377893');
 fbq('track', 'PageView');
 
 
+function applyDiscount() {
+    const discountCode = document.getElementById('discount-code').value.toUpperCase();
+    const discountMessage = document.getElementById('discount-message');
+    let total = parseFloat(orderTotal.innerText);
+    let discount = 0;
 
-            function applyDiscount() {
-                const discountCode = document.getElementById('discount-code').value;
-                const discountMessage = document.getElementById('discount-message');
-                let total = parseFloat(orderTotal.innerText);
+    const discount5 = ["X9G3L", "M2P7D", "Z4Y8Q"];
+    const discount10 = ["B6T2V", "F9K3W", "J1X7C"];
 
-                if (discountCode === "خصم10") {
-                    const discount = total * 0.1;
+    if (discount5.includes(discountCode)) {
+        discount = total * 0.05;
+        discountMessage.innerText = "5% discount applied";
+        discountMessage.className = "discount-message success";
+    } else if (discount10.includes(discountCode)) {
+        discount = total * 0.1;
+        discountMessage.innerText = "10% discount applied";
+        discountMessage.className = "discount-message success";
+    } else {
+        discountMessage.innerText = "Invalid discount code";
+        discountMessage.className = "discount-message error";
+    }
 
-                    discountTotal.innerText = discount.toFixed(2);
-                    discountMessage.innerText = "your discount code is applied";
-                    discountMessage.className = "discount-message success";
-                } else {
-                    discountTotal.innerText = "0.00";
-                    discountMessage.innerText = "your discount code is invalid";
-                    discountMessage.className = "discount-message error";
-                }
-                updateFinalTotal();
-            }
+    discountTotal.innerText = discount.toFixed(2);
+    updateFinalTotal();
+}
+
 
             function goToShopping() {
                 window.location.href = "products.html";

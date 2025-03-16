@@ -875,24 +875,36 @@ body {
     <div class="container">
         <!-- معرض صور المنتج -->
         <div class="product-gallery">
-            <img id="main-image" src="images\6.jpg" alt="Product Image">  <!--  الصورة الرئيسية -->
+            <img id="main-image" src="1818181818.jpg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
             <div class="arrows">
+               
             </div>
             <div class="thumbnails">
-                <img src="images\6.jpg" onclick="changeImage(this)">
-                <img src="images\66.jpg" onclick="changeImage(this)">
-                <img src="images\666.jpg" onclick="changeImage(this)">
-                <img src="images\6666.jpg" onclick="changeImage(this)">
-                <img src="images\66666.jpg" onclick="changeImage(this)">
-                <img src="images\666666.jpg" onclick="changeImage(this)">
+                <img src="18.jpg" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
+                <img src="1818.jpg" onclick="changeImage(this)">
+                <img src="181818.jpg" onclick="changeImage(this)">
+                <img src="18181818.jpg" onclick="changeImage(this)">
+                <img src="1818181818.jpg" onclick="changeImage(this)">
+                <img src="181818181818.jpg" onclick="changeImage(this)">
+                <img src="18181818181818.jpg" onclick="changeImage(this)">
+                <img src="1818181818181818.jpg" onclick="changeImage(this)">
+                <img src="181818181818181818.jpg" onclick="changeImage(this)">
+                <img src="18181818181818181818.jpg" onclick="changeImage(this)">
+                <img src="1818181818181818181818.jpg" onclick="changeImage(this)">
+
             </div>
         </div>
 
         <div class="product-info">
-            <h1>فستان همس</h1>
-            <p><del class="old-price">1050 EGP</del> <strong class="price">950 EGP</strong></p>
-            
-            
+            <h1>عباءة هديل </h1>
+            <p><del class="old-price">1580 EGP</del> <strong class="price">1480 EGP</strong></p>
+
+            <div class="sizes">
+                <p>المقاسات:</p>
+               
+                <button onclick="selectSize('(L) (1)', event)">(L) (1)</button>
+                <button onclick="selectSize('(XL) (2)', event)">(XL) (2)</button>
+            </div>
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -1093,13 +1105,25 @@ fbq('track', 'PageView');
     function addToCart() {
         if (!selectedSize) {
             
-            
+            Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'Please select a size',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    title: 'custom-swal-title',
+                    content: 'custom-swal-content',
+                    confirmButton: 'custom-swal-confirm-button'
+                }
+            });
+            return;
         }
 
         // إنشاء كائن المنتج
         const product = {
-            name: "فستان همس",
-            price: 950,
+            name: "عباءه هديل",
+            price: 1480,
             image: document.getElementById('main-image').src, 
             size: selectedSize,
             quantity: parseInt(document.getElementById('quantity').value)
