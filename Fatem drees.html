@@ -875,36 +875,33 @@ body {
     <div class="container">
         <!-- معرض صور المنتج -->
         <div class="product-gallery">
-            <img id="main-image" src="1818.jpg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
+            <img id="main-image" src="images\181818.jpg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
             <div class="arrows">
                
             </div>
             <div class="thumbnails">
-                <img src="18.jpg" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
-                <img src="1818.jpg" onclick="changeImage(this)">
-                <img src="181818.jpg" onclick="changeImage(this)">
-                <img src="18181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818.jpg" onclick="changeImage(this)">
-                <img src="181818181818.jpg" onclick="changeImage(this)">
-                <img src="18181818181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818181818.jpg" onclick="changeImage(this)">
-                <img src="181818181818181818.jpg" onclick="changeImage(this)">
-                <img src="18181818181818181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818181818181818.jpg" onclick="changeImage(this)">
+                <img src="images\181818.jpg" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
+                <img src="images\18181818.jpg" onclick="changeImage(this)">
+                <img src="images\1818181818.jpg" onclick="changeImage(this)">
+                <img src="images\181818181818.jpg" onclick="changeImage(this)">
+                <img src="images\18181818181818.jpg" onclick="changeImage(this)">
+                <img src="images\1818181818181818.jpg" onclick="changeImage(this)">
+                
 
             </div>
         </div>
 
         <div class="product-info">
-            <h1>عباءة هديل </h1>
-            <p><del class="old-price">1580 EGP</del> <strong class="price">1480 EGP</strong></p>
+            <h1>Fatem drees</h1>
+            <p><del class="old-price">950 EGP</del> <strong class="price">890 EGP</strong></p>
 
             <div class="sizes">
                 <p>المقاسات:</p>
                
-                <button onclick="selectSize('(L) (1)', event)">(L) (1)</button>
-                <button onclick="selectSize('(XL) (2)', event)">(XL) (2)</button>
+                <button onclick="selectSize('(1)', event)">(1)</button>
+                <button onclick="selectSize('(2)', event)">(2)</button>
             </div>
+
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
@@ -926,18 +923,13 @@ body {
         </div>
            
             </div>
-            <p class="material">عباءة هديل 
-            </p>
-            <p class="material">اختارى عباءتك المصممة  بدقة لتبرز أناقة وحشمة المسلمة وعصرية لتناسب شخصيتك</p>
-            <p class="material">العباءة مصنوعة من قماش الكريب الخليجي الانسيابى الناعم وممزوج بقماش الجاكار الذى يعطيها لمسة ساحرة تعبر عن قوتك .
-                العباءة تناسب كل المناسبات حيث انها راقية وعمليه وخفيفة لتمنحك الحيوية والسرعة.</p>
-            <p class="material">العباءة متوفرة بمقاسين مختلفين 
-                 محيط الصدر ٦٠ سم .
-                طول من الكتف للارض ١٥٠ سم </p>
-            <p class="material"> محيط الصدر  ٧٠ سم .
-                طول من الكتف للارض ١٥٥ سم</p>
-            <p class="material">العباءة بتصميم النصف كلوش لتكون اكثر سترا.</p>
-            <p class="material"></p>
+            <p class="material">البنت الكيوت اهى</p>
+            <p class="material">هتحسي بالرقة والشياكه والراحه فى فستان واحد .</p>
+            <p class="material">فستان فاطم اختيارك الرائع في الصيف لانه من خامة الكتان </p>
+            <p class="material">احسن خامه تلبسيها فى الصيف </p>
+            <p class="material">متاح مقاسين :</p>
+            <p class="material">١- محيط الصدر ٦٠سم </p>
+            <p class="material">٢-محيط الصدر ٥٥سم </p>
             <p class="material"></p>
         </div>
     </div>
@@ -1127,8 +1119,8 @@ fbq('track', 'PageView');
 
         // إنشاء كائن المنتج
         const product = {
-            name: "عباءه هديل",
-            price: 1480,
+            name: "Fatem drees",
+            price: 890,
             image: document.getElementById('main-image').src, 
             size: selectedSize,
             quantity: parseInt(document.getElementById('quantity').value)

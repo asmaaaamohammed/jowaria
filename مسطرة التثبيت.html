@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
         }
- 
+
         
 
         .container {
@@ -795,6 +795,68 @@ body {
     pointer-events: none; /* منع المستخدم من الكتابة يدويًا */
 }
 
+.colors {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.color-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-box.selected {
+    border: 2px solid #4B164C;
+    box-shadow: 0 4px 15px rgba(75, 22, 76, 0.3);
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgb(188, 88, 88);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.color-box:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.color-options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 4 أعمدة في كل صف */
+    gap: 15px; /* مسافة بين العناصر */
+    justify-content: center;
+}
+
+.color-box {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
 
     </style>
@@ -875,41 +937,29 @@ body {
     <div class="container">
         <!-- معرض صور المنتج -->
         <div class="product-gallery">
-            <img id="main-image" src="1818.jpg" alt="Product Image"> <!-- هنا انتا هتحط الصوره الاولي مكان جججج -->
+            <img id="main-image" src="images\18.jpg" alt="Product Image">  <!--  الصورة الرئيسية -->
             <div class="arrows">
-               
             </div>
             <div class="thumbnails">
-                <img src="18.jpg" onclick="changeImage(this)">    <!-- هنا انتا هتحط بقيه الصور بتاع المنتج مكان جججج -->
-                <img src="1818.jpg" onclick="changeImage(this)">
-                <img src="181818.jpg" onclick="changeImage(this)">
-                <img src="18181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818.jpg" onclick="changeImage(this)">
-                <img src="181818181818.jpg" onclick="changeImage(this)">
-                <img src="18181818181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818181818.jpg" onclick="changeImage(this)">
-                <img src="181818181818181818.jpg" onclick="changeImage(this)">
-                <img src="18181818181818181818.jpg" onclick="changeImage(this)">
-                <img src="1818181818181818181818.jpg" onclick="changeImage(this)">
-
+                <img src="images\18.jpg" onclick="changeImage(this)">
+                <img src="images\1818.jpg" onclick="changeImage(this)">
+                                
             </div>
         </div>
 
         <div class="product-info">
-            <h1>عباءة هديل </h1>
-            <p><del class="old-price">1580 EGP</del> <strong class="price">1480 EGP</strong></p>
+            <h1>مسطرة التثبيت </h1>
+            <p><del class="old-price">15 EGP</del> <strong class="price">12 EGP</strong></p>
 
-            <div class="sizes">
-                <p>المقاسات:</p>
-               
-                <button onclick="selectSize('(L) (1)', event)">(L) (1)</button>
-                <button onclick="selectSize('(XL) (2)', event)">(XL) (2)</button>
-            </div>
+
+            
+           
             
             <div class="quantity-control">
                 <button onclick="decreaseQuantity()">-</button>
                 <input type="text" id="quantity" value="1" readonly>
                 <button onclick="increaseQuantity()">+</button>
+                
             </div>
             
             
@@ -926,19 +976,9 @@ body {
         </div>
            
             </div>
-            <p class="material">عباءة هديل 
-            </p>
-            <p class="material">اختارى عباءتك المصممة  بدقة لتبرز أناقة وحشمة المسلمة وعصرية لتناسب شخصيتك</p>
-            <p class="material">العباءة مصنوعة من قماش الكريب الخليجي الانسيابى الناعم وممزوج بقماش الجاكار الذى يعطيها لمسة ساحرة تعبر عن قوتك .
-                العباءة تناسب كل المناسبات حيث انها راقية وعمليه وخفيفة لتمنحك الحيوية والسرعة.</p>
-            <p class="material">العباءة متوفرة بمقاسين مختلفين 
-                 محيط الصدر ٦٠ سم .
-                طول من الكتف للارض ١٥٠ سم </p>
-            <p class="material"> محيط الصدر  ٧٠ سم .
-                طول من الكتف للارض ١٥٥ سم</p>
-            <p class="material">العباءة بتصميم النصف كلوش لتكون اكثر سترا.</p>
-            <p class="material"></p>
-            <p class="material"></p>
+            <h1 class="material">اساسى عشان تظبطى خمارك من غير بندانه 
+                بسيطة وسهله</h1>
+            
         </div>
     </div>
 </div>
@@ -1033,6 +1073,39 @@ body {
         
     }
 
+    function selectColor(color, event) {
+    // إزالة التحديد من جميع الأزرار الأخرى
+    document.querySelectorAll('.colors button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    event.target.classList.add('selected');
+
+    // حفظ اللون في localStorage
+    localStorage.setItem('selectedColor', color);
+}
+
+
+function selectColor(element) {
+    // إزالة التحديد من جميع الألوان الأخرى
+    document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    element.classList.add('selected');
+
+    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
+    const mainImage = document.getElementById('main-image');
+    const selectedImage = element.getAttribute('data-image');
+    mainImage.src = selectedImage;
+
+    // حفظ اللون المختار في localStorage
+    const selectedColor = element.getAttribute('data-color');
+    localStorage.setItem('selectedColor', selectedColor);
+}
+
     
 
   
@@ -1067,30 +1140,6 @@ body {
     }
 
  
-    function selectSize(size, event) {
-        selectedSize = size;
-
-       
-        document.querySelectorAll('.sizes button').forEach(button => {
-            button.classList.remove('selected');
-        });
-
-        
-        event.target.classList.add('selected');
-    }
-
-    <!-- Facebook Pixel Code -->
-
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1643480760377893');
-fbq('track', 'PageView');
 
     
     function increaseQuantity() {
@@ -1110,28 +1159,17 @@ fbq('track', 'PageView');
     function addToCart() {
         if (!selectedSize) {
             
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
-            return;
+           
         }
+        const selectedColor = document.querySelector('.color-box.selected')?.getAttribute('data-color') || 'لم يتم التحديد';
 
         // إنشاء كائن المنتج
         const product = {
-            name: "عباءه هديل",
-            price: 1480,
-            image: document.getElementById('main-image').src, 
-            size: selectedSize,
-            quantity: parseInt(document.getElementById('quantity').value)
+            name: "مسطرة التثبيت ",
+            price: 12,
+            image: document.getElementById('main-image').src,
+        size: selectedSize,
+        quantity: parseInt(document.getElementById('quantity').value),
         };
 
         
@@ -1151,6 +1189,20 @@ fbq('track', 'PageView');
       
         window.location.href = "cart.html";
     }
+
+
+    <!-- Facebook Pixel Code -->
+
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1643480760377893');
+fbq('track', 'PageView');
 
 
     function buyNow() {
