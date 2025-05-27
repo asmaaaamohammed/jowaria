@@ -961,6 +961,27 @@ body {
                 <button onclick="increaseQuantity()">+</button>
                 
             </div>
+
+
+            <div class="colors">
+                <p>اختر اللون:</p>
+                <div class="color-options">
+                    <div class="color-box" data-color="#273432" data-image="images\191919191919.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #273432;"></div>
+                    </div>
+                    <div class="color-box" data-color="#000000" data-image="images\19.jpg" onclick="selectColor(this)">
+                        <div class="color-circle" style="background-color: #000000;"></div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="sizes">
+                <p>المقاسات:</p>
+               
+                <button onclick="selectSize('(1)', event)">(1)</button>
+                <button onclick="selectSize('(2)', event)">(2)</button>
+            </div>
             
             
             <div class="buy-buttons">
@@ -1056,7 +1077,7 @@ body {
 
     
         
-        <script>
+   <script>
     let selectedSize = null;
     let quantity = 1;
     let autoSlideInterval;
@@ -1076,39 +1097,6 @@ body {
     function startAutoSlide() {
         
     }
-
-    function selectColor(color, event) {
-    // إزالة التحديد من جميع الأزرار الأخرى
-    document.querySelectorAll('.colors button').forEach(button => {
-        button.classList.remove('selected');
-    });
-
-    // تحديد اللون المختار
-    event.target.classList.add('selected');
-
-    // حفظ اللون في localStorage
-    localStorage.setItem('selectedColor', color);
-}
-
-
-function selectColor(element) {
-    // إزالة التحديد من جميع الألوان الأخرى
-    document.querySelectorAll('.color-box').forEach(box => {
-        box.classList.remove('selected');
-    });
-
-    // تحديد اللون المختار
-    element.classList.add('selected');
-
-    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
-    const mainImage = document.getElementById('main-image');
-    const selectedImage = element.getAttribute('data-image');
-    mainImage.src = selectedImage;
-
-    // حفظ اللون المختار في localStorage
-    const selectedColor = element.getAttribute('data-color');
-    localStorage.setItem('selectedColor', selectedColor);
-}
 
     
 
@@ -1144,12 +1132,69 @@ function selectColor(element) {
     }
 
  
+    function selectSize(size, event) {
+        selectedSize = size;
+
+       
+        document.querySelectorAll('.sizes button').forEach(button => {
+            button.classList.remove('selected');
+        });
+
+        
+        event.target.classList.add('selected');
+    }
+
+    <!-- Facebook Pixel Code -->
+
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1643480760377893');
+fbq('track', 'PageView');
 
     
     function increaseQuantity() {
         quantity++;
         document.getElementById('quantity').value = quantity;
     }
+
+
+    function selectColor(color, event) {
+    // إزالة التحديد من جميع الأزرار الأخرى
+    document.querySelectorAll('.colors button').forEach(button => {
+        button.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    event.target.classList.add('selected');
+
+    // حفظ اللون في localStorage
+    localStorage.setItem('selectedColor', color);
+}
+
+function selectColor(element) {
+    // إزالة التحديد من جميع الألوان الأخرى
+    document.querySelectorAll('.color-box').forEach(box => {
+        box.classList.remove('selected');
+    });
+
+    // تحديد اللون المختار
+    element.classList.add('selected');
+
+    // تغيير الصورة الرئيسية للمنتج بناءً على اللون المختار
+    const mainImage = document.getElementById('main-image');
+    const selectedImage = element.getAttribute('data-image');
+    mainImage.src = selectedImage;
+
+    // حفظ اللون المختار في localStorage
+    const selectedColor = element.getAttribute('data-color');
+    localStorage.setItem('selectedColor', selectedColor);
+}
 
    
     function decreaseQuantity() {
@@ -1163,6 +1208,21 @@ function selectColor(element) {
     function addToCart() {
         if (!selectedSize) {
             
+            Swal.fire({
+                icon: 'error',
+                title: 'error',
+                text: 'Please select a size',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'custom-swal-popup',
+                    title: 'custom-swal-title',
+                    content: 'custom-swal-content',
+                    confirmButton: 'custom-swal-confirm-button'
+                }
+            });
+            return;
+        
+            
            
         }
         const selectedColor = document.querySelector('.color-box.selected')?.getAttribute('data-color') || 'لم يتم التحديد';
@@ -1174,6 +1234,8 @@ function selectColor(element) {
             image: document.getElementById('main-image').src,
         size: selectedSize,
         quantity: parseInt(document.getElementById('quantity').value),
+        color: selectedColor // إضافة اللون المختار إلى المنتج
+
         };
 
         
@@ -1193,20 +1255,6 @@ function selectColor(element) {
       
         window.location.href = "cart.html";
     }
-
-
-    <!-- Facebook Pixel Code -->
-
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1643480760377893');
-fbq('track', 'PageView');
 
 
     function buyNow() {
