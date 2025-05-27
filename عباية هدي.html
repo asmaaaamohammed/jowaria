@@ -976,12 +976,7 @@ body {
                 </div>
             </div>
 
-            <div class="sizes">
-                <p>المقاسات:</p>
-               
-                <button onclick="selectSize('(1)', event)">(1)</button>
-                <button onclick="selectSize('(2)', event)">(2)</button>
-            </div>
+           
             
             
             <div class="buy-buttons">
@@ -1208,18 +1203,7 @@ function selectColor(element) {
     function addToCart() {
         if (!selectedSize) {
             
-            Swal.fire({
-                icon: 'error',
-                title: 'error',
-                text: 'Please select a size',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    title: 'custom-swal-title',
-                    content: 'custom-swal-content',
-                    confirmButton: 'custom-swal-confirm-button'
-                }
-            });
+            
             return;
         
             
